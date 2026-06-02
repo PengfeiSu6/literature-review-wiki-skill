@@ -247,7 +247,10 @@ def main() -> int:
         new_records.append(record)
 
     daily_path = root / "daily" / f"{run_date}.md"
-    daily_path.write_text(daily_markdown(new_records, run_date, args.source_name), encoding="utf-8")
+    if new_records or args.overwrite or not daily_path.exists():
+        daily_path.write_text(daily_markdown(new_records, run_date, args.source_name), encoding="utf-8")
+    else:
+        print(f"No new records; left existing daily note unchanged: {daily_path}")
     seen_path.write_text(json.dumps(seen, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     print(f"Input records: {len(records)}")
