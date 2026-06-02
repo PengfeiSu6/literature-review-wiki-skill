@@ -249,13 +249,14 @@ def main() -> int:
     daily_path = root / "daily" / f"{run_date}.md"
     if new_records or args.overwrite or not daily_path.exists():
         daily_path.write_text(daily_markdown(new_records, run_date, args.source_name), encoding="utf-8")
+        daily_note_status = "Wrote daily note"
     else:
-        print(f"No new records; left existing daily note unchanged: {daily_path}")
+        daily_note_status = "Left existing daily note unchanged"
     seen_path.write_text(json.dumps(seen, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     print(f"Input records: {len(records)}")
     print(f"New records: {len(new_records)}")
-    print(f"Wrote daily note: {daily_path}")
+    print(f"{daily_note_status}: {daily_path}")
     print(f"Updated seen file: {seen_path}")
     return 0
 
