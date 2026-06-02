@@ -20,7 +20,7 @@ License data was checked from GitHub repository metadata on 2026-06-02. Re-check
 | [dsebastien/ai-skill-scholar](https://github.com/dsebastien/ai-skill-scholar) | OpenAlex search and review-skill reference | MIT | Permissive; preserve notices if code is reused. |
 | [Zikt/scholare](https://github.com/Zikt/scholare) | Config-driven literature pipeline reference | MIT | Permissive; preserve notices if code is reused. |
 | [CarinaSchoppe/PISMA-Literature-Review-Pipeline-Automation-Tool](https://github.com/CarinaSchoppe/PISMA-Literature-Review-Pipeline-Automation-Tool) | PRISMA/systematic-review workflow reference | GPL-3.0 | Reference only here; do not copy code into this MIT repo without GPL compliance. |
-| [PengfeiSu6/arXiv-Daily-Summarizer](https://github.com/PengfeiSu6/arXiv-Daily-Summarizer) | Daily paper radar and `latest.json` feed reference | MIT | Permissive; preserve notices if code is reused. |
+| [lelouchsola/arXiv-Daily-Summarizer](https://github.com/lelouchsola/arXiv-Daily-Summarizer) | Daily paper radar and `latest.json` feed reference | MIT | Permissive; preserve notices if code is reused. |
 | [TideDra/zotero-arxiv-daily](https://github.com/TideDra/zotero-arxiv-daily) | Zotero-based daily arXiv recommendation reference | AGPL-3.0 | Reference or separate-tool use only unless AGPL obligations are satisfied. |
 | [ziwenhahaha/daily-paper-reader](https://github.com/ziwenhahaha/daily-paper-reader) | GitHub Actions and Pages daily-reader reference | MIT | Permissive; preserve notices if code is reused. |
 | [theislab/paperbee](https://github.com/theislab/paperbee) | Daily scientific paper discovery reference | MIT | Permissive; preserve notices if code is reused. |

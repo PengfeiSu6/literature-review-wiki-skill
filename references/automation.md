@@ -28,7 +28,7 @@ For Asia/Shanghai, `17 1 * * *` UTC runs around 09:17 local time. Adjust the cro
 
 ## arXiv-Daily-Summarizer Integration
 
-`PengfeiSu6/arXiv-Daily-Summarizer` is useful as a daily radar:
+`lelouchsola/arXiv-Daily-Summarizer` is useful as a daily radar:
 
 - workflow: `.github/workflows/build_daily_site.yml`
 - local entry: `python -m scripts.build_daily_site`

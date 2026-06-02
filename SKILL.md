@@ -12,12 +12,12 @@ Treat Zotero as the bibliographic source of truth, Obsidian as the synthesis and
 ## Decision Tree
 
 1. If the user asks to start a new topic, create a project config and Obsidian skeleton with `scripts/init_lit_review_project.py`.
-2. If the user provides daily paper JSON, a GitHub Pages `latest.json`, or output from `PengfeiSu6/arXiv-Daily-Summarizer`, convert it into daily notes and paper stubs with `scripts/daily_json_to_obsidian.py`.
+2. If the user provides daily paper JSON, a GitHub Pages `latest.json`, or output from `lelouchsola/arXiv-Daily-Summarizer`, convert it into daily notes and paper stubs with `scripts/daily_json_to_obsidian.py`.
 3. If the user asks for search, combine broad discovery sources:
    - OpenAlex for cross-field metadata and citation graph seed expansion.
    - Semantic Scholar, Crossref, PubMed, arXiv, bioRxiv/medRxiv where relevant.
    - `openags/paper-search-mcp` when available for multi-source search/download.
-   - `PengfeiSu6/arXiv-Daily-Summarizer` when a daily arXiv/RSS-style paper radar or GitHub Pages digest is useful.
+   - `lelouchsola/arXiv-Daily-Summarizer` when a daily arXiv/RSS-style paper radar or GitHub Pages digest is useful.
 4. If the user asks to import papers, prefer Zotero/MCP/Zotero API workflows. Store DOI, arXiv ID, URL, OA PDF status, and citation key before writing synthesis notes.
 5. If the user asks to update the review, first inspect new notes and evidence status; then update topic pages, claim pages, and review drafts separately.
 6. Before calling the wiki current, run `scripts/lint_lit_review_wiki.py` or perform the same checks manually.
@@ -65,7 +65,7 @@ Paper notes should use stable identifiers from DOI, arXiv ID, PMID, or a title h
 
 For recurring checks, use the platform automation tool when available. In Codex Desktop, search for `automation_update` first if the user wants a reminder or recurring job. If no automation tool is available, provide a GitHub Actions or Windows Task Scheduler fallback.
 
-For `PengfeiSu6/arXiv-Daily-Summarizer`, use its static-site output as a radar feed:
+For `lelouchsola/arXiv-Daily-Summarizer`, use its static-site output as a radar feed:
 
 1. Run or fetch its daily `site/latest.json`.
 2. Convert new records into Obsidian notes with `scripts/daily_json_to_obsidian.py`.

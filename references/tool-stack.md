@@ -13,7 +13,7 @@ No single GitHub repository is currently a complete mature solution for multi-so
 
 ## Daily Monitoring
 
-- `PengfeiSu6/arXiv-Daily-Summarizer`: GitHub Actions daily static site. Current README says it fetches daily papers/articles, scores relevance/source quality, generates Chinese summaries/comments, writes `site/latest.json` and `site/index.html`, and deploys to GitHub Pages. It is useful as a radar feed but does not retain cross-day history.
+- `lelouchsola/arXiv-Daily-Summarizer`: GitHub Actions daily static site. Current README says it fetches daily papers/articles, scores relevance/source quality, generates Chinese summaries/comments, writes `site/latest.json` and `site/index.html`, and deploys to GitHub Pages. It is useful as a radar feed but does not retain cross-day history.
 - `TideDra/zotero-arxiv-daily`: recommends new arXiv papers based on an existing Zotero library.
 - `ziwenhahaha/daily-paper-reader`: GitHub Actions and GitHub Pages pattern for daily arXiv/OpenReview paper reading.
 - `theislab/paperbee`: daily scientific paper discovery and messaging channels.

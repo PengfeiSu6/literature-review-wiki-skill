@@ -23,7 +23,7 @@ Use multiple discovery lanes and keep their outputs separate until deduplication
 - preprint search: arXiv, bioRxiv, medRxiv
 - domain database: PubMed, IEEE Xplore metadata, DBLP, ACM, Scopus/WoS if the user has access
 - citation expansion: references and citing papers for seed papers
-- daily feed: `PengfeiSu6/arXiv-Daily-Summarizer`, `TideDra/zotero-arxiv-daily`, or topic-specific RSS
+- daily feed: `lelouchsola/arXiv-Daily-Summarizer`, `TideDra/zotero-arxiv-daily`, or topic-specific RSS
 
 Save raw search outputs when possible. Do not collapse candidate papers into review claims during discovery.
 

@@ -7,7 +7,7 @@ Codex skill for building an evidence-first literature review workflow that combi
 - Discovers papers across metadata and preprint sources such as OpenAlex, Semantic Scholar, Crossref, arXiv, PubMed, and MCP-based paper search tools.
 - Treats Zotero as the bibliographic source of truth.
 - Treats Obsidian as the synthesis layer for paper notes, topic pages, claim maps, daily updates, and working review drafts.
-- Integrates daily radar feeds such as `https://github.com/lelouchsola/arXiv-Daily-Summarizer` by converting `site/latest.json` into local Obsidian notes.
+- Integrates daily radar feeds such as `lelouchsola/arXiv-Daily-Summarizer` by converting `site/latest.json` into local Obsidian notes.
 - Preserves evidence boundaries so metadata-only candidates are not silently promoted into review-ready claims.
 
 ## Repository Contents
@@ -54,7 +54,7 @@ python .\scripts\init_lit_review_project.py `
   --zotero-collection "industrial energy flexibility"
 ```
 
-Convert a daily paper feed, such as `site/latest.json` from `PengfeiSu6/arXiv-Daily-Summarizer`, into Obsidian notes:
+Convert a daily paper feed, such as `site/latest.json` from `lelouchsola/arXiv-Daily-Summarizer`, into Obsidian notes:
 
 ```powershell
 python .\scripts\daily_json_to_obsidian.py `
@@ -73,7 +73,7 @@ python .\scripts\lint_lit_review_wiki.py `
 ## Recommended Tool Stack
 
 - Search/download: `openags/paper-search-mcp`, OpenAlex, Semantic Scholar, Crossref, arXiv, PubMed.
-- Daily feed: `PengfeiSu6/arXiv-Daily-Summarizer`, `TideDra/zotero-arxiv-daily`, or topic-specific RSS.
+- Daily feed: `lelouchsola/arXiv-Daily-Summarizer`, `TideDra/zotero-arxiv-daily`, or topic-specific RSS.
 - Zotero: `Xevos117/mcp-zotero`, Better BibTeX, Zotero Better Notes.
 - Obsidian: Obsidian Zotero Integration and the wiki schema in `references/obsidian-schema.md`.
 
