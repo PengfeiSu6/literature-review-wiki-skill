@@ -1,0 +1,7 @@
+interface:
+  display_name: "Literature Review Wiki"
+  short_description: "Maintain Zotero and Obsidian review wikis."
+  default_prompt: "Use $literature-review-wiki to discover papers on a topic, update Zotero and Obsidian notes, and maintain an incremental literature review wiki."
+
+policy:
+  allow_implicit_invocation: true
