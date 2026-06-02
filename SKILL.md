@@ -80,6 +80,7 @@ Load only the reference needed for the current task:
 
 - `references/workflow.md`: end-to-end workflow from search to review update.
 - `references/tool-stack.md`: recommended GitHub/tool stack and how each component fits.
+- `references/license-compliance.md`: reference repositories, detected licenses, and reuse boundaries.
 - `references/obsidian-schema.md`: folder structure, note schema, and templates.
 - `references/automation.md`: daily monitoring with GitHub Actions, Codex automation, or local schedulers.
 - `references/evidence-policy.md`: source legality, evidence statuses, and review-claim rules.

@@ -15,7 +15,9 @@ Codex skill for building an evidence-first literature review workflow that combi
 ```text
 SKILL.md
 agents/openai.yaml
+LICENSE
 references/
+  license-compliance.md
   automation.md
   evidence-policy.md
   obsidian-schema.md
@@ -75,6 +77,12 @@ python .\scripts\lint_lit_review_wiki.py `
 - Zotero: `Xevos117/mcp-zotero`, Better BibTeX, Zotero Better Notes.
 - Obsidian: Obsidian Zotero Integration and the wiki schema in `references/obsidian-schema.md`.
 
+## Reference Licenses
+
+This repository is released under the MIT License. It does not copy, vendor, embed, or redistribute code from the referenced GitHub projects.
+
+See [references/license-compliance.md](references/license-compliance.md) for the referenced repositories, their detected SPDX licenses, and the allowed usage boundary. In short: MIT projects are permissive with attribution; GPL/AGPL projects are reference or separate-tool integrations unless their license obligations are satisfied; no-license or `NOASSERTION` projects must not be copied without manual review or permission.
+
 ## Evidence Policy
 
 The skill distinguishes:
@@ -92,4 +100,3 @@ Only `fulltext-read` papers should support detailed literature-review claims. Th
 ```text
 Codex skill for Zotero-backed literature reviews, daily paper monitoring, and Obsidian wiki maintenance.
 ```
-
