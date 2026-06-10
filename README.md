@@ -61,9 +61,32 @@ Then start a new Codex session and invoke:
 Use $literature-review-wiki to set up a literature review wiki for <topic>.
 ```
 
+The helper scripts can also be installed as a Python package from a checkout:
+
+```powershell
+python -m pip install -e .
+```
+
+This installs the package module `literature_review_wiki` and these console scripts:
+
+- `litwiki-init`
+- `litwiki-daily-json`
+- `litwiki-lint`
+
+The original direct script entry points under `scripts/` remain supported.
+
 ## Quick Start
 
 Create an Obsidian literature review wiki:
+
+```powershell
+litwiki-init `
+  --root "C:\path\to\ObsidianVault\Literature" `
+  --topic "industrial energy flexibility" `
+  --zotero-collection "industrial energy flexibility"
+```
+
+Equivalent direct script form:
 
 ```powershell
 python .\scripts\init_lit_review_project.py `
@@ -75,7 +98,7 @@ python .\scripts\init_lit_review_project.py `
 Convert a daily paper feed, such as `site/latest.json` from `lelouchsola/arXiv-Daily-Summarizer`, into Obsidian notes:
 
 ```powershell
-python .\scripts\daily_json_to_obsidian.py `
+litwiki-daily-json `
   --input "C:\path\to\latest.json" `
   --vault "C:\path\to\ObsidianVault\Literature" `
   --source-name "arXiv-Daily-Summarizer"
@@ -84,8 +107,15 @@ python .\scripts\daily_json_to_obsidian.py `
 Check the wiki structure and evidence boundaries:
 
 ```powershell
-python .\scripts\lint_lit_review_wiki.py `
+litwiki-lint `
   --vault "C:\path\to\ObsidianVault\Literature"
+```
+
+The direct script names remain available for compatibility:
+
+```powershell
+python .\scripts\daily_json_to_obsidian.py --input "C:\path\to\latest.json" --vault "C:\path\to\ObsidianVault\Literature"
+python .\scripts\lint_lit_review_wiki.py --vault "C:\path\to\ObsidianVault\Literature"
 ```
 
 ## Recommended Tool Stack
