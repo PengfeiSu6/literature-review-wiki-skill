@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "literature-review-wiki": {
+      "command": "python",
+      "args": [
+        "C:/path/to/literature-review-wiki-skill/scripts/literature_mcp_server.py",
+        "--vault",
+        "C:/path/to/ObsidianVault/Literature/industrial-energy-flexibility"
+      ]
+    }
+  }
+}

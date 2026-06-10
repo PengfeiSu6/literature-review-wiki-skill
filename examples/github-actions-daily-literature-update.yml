@@ -1,0 +1,25 @@
+name: Daily Literature Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 1 * * *"
+
+jobs:
+  update-literature:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run literature update
+        run: |
+          python scripts/literature_pipeline.py --config examples/literature-config.example.json
+          python scripts/build_corpus.py --vault "$(python - <<'PY'
+          import json
+          print(json.load(open('examples/literature-config.example.json', encoding='utf-8'))['wiki_root'])
+          PY
+          )"
+      - name: Show changed files
+        run: git status --short

@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install package
+        run: python -m pip install -e ".[dev]"
+      - name: Compile scripts
+        run: python -m py_compile scripts/*.py litwiki/*.py
+      - name: Run tests
+        run: python -m pytest -q
+      - name: Fixture CLI smoke test
+        shell: bash
+        run: |
+          cat > /tmp/litwiki-config.json <<'JSON'
+          {
+            "topic": "industrial energy flexibility",
+            "wiki_root": "/tmp/litwiki-vault",
+            "fixture_records_path": "tests/fixtures/discovery-records.json",
+            "download_open_access_pdfs": false,
+            "run_date": "2026-06-10"
+          }
+          JSON
+          litwiki-discover --config /tmp/litwiki-config.json
+          litwiki-build-corpus --vault /tmp/litwiki-vault
+          litwiki-lint --vault /tmp/litwiki-vault --require-corpus

@@ -9,11 +9,14 @@ Literature/
     literature-review-config.json
   daily/
   papers/
+  pdfs/
   topics/
   claims/
   reviews/
   templates/
   data/
+    discovery/
+    corpus/
 ```
 
 ## Paper Note Frontmatter
@@ -32,6 +35,7 @@ arxiv_id: ""
 pmid: ""
 url: ""
 pdf_url: ""
+pdf_path: ""
 zotero_key: ""
 zotero_status: pending
 evidence_status: metadata-only
@@ -39,6 +43,9 @@ topics: []
 roles: []
 added: ""
 last_reviewed: ""
+discovery_source: ""
+discovery_query: ""
+venue_status: ""
 ---
 ```
 
@@ -121,3 +128,11 @@ Use these defaults:
 - `reviews/gaps.md`: research gaps and uncertainties
 - `reviews/search-log.md`: search strings, sources, dates, and counts
 - `reviews/screening-log.md`: inclusion/exclusion decisions
+
+## Data Files
+
+- `data/seen_papers.json`: dedupe state keyed by DOI, arXiv ID, or normalized title.
+- `data/discovery/YYYY-MM-DD.json`: raw daily discovery records.
+- `data/corpus/sentences.jsonl`: sentence-level writing corpus for MCP use.
+- `data/corpus/phrase-patterns.md`: recurring phrase starts grouped by rhetorical function.
+- `pdfs/<paper_id>.pdf`: optional authorized open-access PDFs.

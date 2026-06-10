@@ -3,6 +3,9 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.venv/
+*.egg-info/
+uv.lock
 .DS_Store
 Thumbs.db
 .env

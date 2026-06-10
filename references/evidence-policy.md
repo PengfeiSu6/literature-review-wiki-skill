@@ -27,6 +27,7 @@ Do not use unauthorized sources or bypass publisher access controls.
 - A gap claim should distinguish "not found in this search" from "absent in the literature".
 - A benchmark or method comparison should include evaluation conditions, dataset/domain, and metric if available.
 - Do not turn model-generated summaries into evidence unless checked against the paper.
+- Do not treat MCP corpus examples as factual evidence unless the linked paper note is `fulltext-read`.
 
 ## Review Language
 

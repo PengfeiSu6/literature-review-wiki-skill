@@ -11,6 +11,7 @@ DEFAULT_DIRS = [
     "config",
     "daily",
     "papers",
+    "pdfs",
     "topics",
     "claims",
     "reviews",
@@ -51,9 +52,9 @@ def build_config(args: argparse.Namespace) -> dict:
         "wiki_root": str(Path(args.root).resolve()),
         "sources": {
             "openalex": True,
-            "semantic_scholar": True,
             "crossref": True,
             "arxiv": True,
+            "semantic_scholar": False,
             "pubmed": False,
             "paper_search_mcp": "optional",
             "arxiv_daily_summarizer": "optional",
@@ -75,6 +76,11 @@ def build_config(args: argparse.Namespace) -> dict:
         "inclusion_criteria": [],
         "exclusion_criteria": [],
         "query_facets": [],
+        "included_venues": [],
+        "venue_patterns": [],
+        "require_venue_match": False,
+        "download_open_access_pdfs": True,
+        "pdf_dir": "pdfs",
     }
 
 
@@ -182,6 +188,8 @@ def main() -> int:
     root.mkdir(parents=True, exist_ok=True)
     for dirname in DEFAULT_DIRS:
         (root / dirname).mkdir(parents=True, exist_ok=True)
+    (root / "data" / "discovery").mkdir(parents=True, exist_ok=True)
+    (root / "data" / "corpus").mkdir(parents=True, exist_ok=True)
 
     config = build_config(args)
     written = []

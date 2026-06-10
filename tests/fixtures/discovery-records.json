@@ -1,0 +1,21 @@
+{
+  "records": [
+    {
+      "title": "Industrial energy flexibility for renewable integration",
+      "authors": ["A. Researcher", "B. Scholar"],
+      "year": "2026",
+      "journal": "Applied Energy",
+      "doi": "10.0000/example",
+      "url": "https://doi.org/10.0000/example",
+      "abstract": "Industrial energy flexibility has become increasingly important for integrating variable renewable energy. This paper presents an optimization framework for scheduling flexible industrial loads. Results show that coordinated operation can reduce peak demand while preserving production feasibility.",
+      "pdf_url": ""
+    },
+    {
+      "title": "Industrial energy flexibility for renewable integration",
+      "authors": ["A. Researcher"],
+      "journal": "Applied Energy",
+      "doi": "10.0000/example",
+      "url": "https://doi.org/10.0000/example"
+    }
+  ]
+}

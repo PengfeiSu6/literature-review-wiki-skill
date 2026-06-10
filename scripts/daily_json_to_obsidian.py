@@ -11,7 +11,7 @@ from typing import Any
 
 
 def load_json(path: Path) -> Any:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
 def as_list(value: Any) -> list[Any]:

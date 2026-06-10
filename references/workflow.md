@@ -27,6 +27,8 @@ Use multiple discovery lanes and keep their outputs separate until deduplication
 
 Save raw search outputs when possible. Do not collapse candidate papers into review claims during discovery.
 
+Built-in path: use `scripts/literature_pipeline.py` with a copied `examples/literature-config.example.json` to query OpenAlex, Crossref, and arXiv, write raw results to `data/discovery/`, create new paper notes, and optionally download authorized OA PDFs.
+
 ## 3. Screening
 
 Use two passes:
@@ -81,3 +83,7 @@ Before treating the review as current:
 - check that paper notes have source URLs or stable identifiers
 - check that daily additions are represented in topic pages
 - check that excluded papers did not silently influence conclusions
+
+## 8. Writing Corpus and MCP
+
+After paper notes are updated, run `scripts/build_corpus.py` to create `data/corpus/sentences.jsonl`. Configure `scripts/literature_mcp_server.py` as an MCP server for writing agents. Treat MCP output as style examples and traceable context; factual claims still require `fulltext-read` paper notes.

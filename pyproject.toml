@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "literature-review-wiki-skill"
+version = "0.2.0"
+description = "Evidence-first literature discovery, Obsidian wiki maintenance, corpus building, and MCP writing support."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "PengfeiSu6" }]
+dependencies = []
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.9.0"]
+pdf = ["pypdf>=4.0.0"]
+dev = ["pytest>=8.0"]
+all = ["mcp>=1.9.0", "pypdf>=4.0.0", "pytest>=8.0"]
+
+[project.scripts]
+litwiki-init = "litwiki.cli:init_project"
+litwiki-discover = "litwiki.cli:discover"
+litwiki-daily-json = "litwiki.cli:daily_json"
+litwiki-build-corpus = "litwiki.cli:build_corpus"
+litwiki-lint = "litwiki.cli:lint"
+litwiki-mcp = "litwiki.cli:mcp"
+
+[tool.setuptools.packages.find]
+include = ["litwiki*", "scripts*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

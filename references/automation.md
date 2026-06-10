@@ -10,8 +10,21 @@ The recurring task should:
 2. write raw results
 3. convert new records into Obsidian notes
 4. mark new high-priority papers for Zotero import
-5. update topic pages and the working review only when evidence status allows it
-6. produce a short daily change summary
+5. rebuild the writing corpus
+6. update topic pages and the working review only when evidence status allows it
+7. produce a short daily change summary
+
+## Built-In Local Pipeline
+
+Use `scripts/literature_pipeline.py` when the project should fetch topic papers directly:
+
+```powershell
+python scripts/literature_pipeline.py --config examples/literature-config.example.json
+python scripts/build_corpus.py --vault "C:\path\to\ObsidianVault\Literature\topic"
+python scripts/lint_lit_review_wiki.py --vault "C:\path\to\ObsidianVault\Literature\topic" --require-corpus
+```
+
+For Windows Task Scheduler, adapt `examples/run_daily_literature_update.ps1`. Keep private vault paths, API keys, and PDFs outside public repositories.
 
 ## GitHub Actions Pattern
 

@@ -1,49 +1,42 @@
 # Literature Review Wiki Skill
 
-Codex skill for building an evidence-first literature review workflow that combines scholarly paper discovery, Zotero-backed bibliography management, daily paper monitoring, and an Obsidian wiki.
+Codex skill and local toolkit for building an evidence-first literature review workflow: discover papers, download authorized open-access PDFs, maintain an Obsidian literature wiki, build a sentence-level writing corpus, and expose that corpus through MCP for academic writing assistance.
 
 ## What It Does
 
-- Discovers papers across metadata and preprint sources such as OpenAlex, Semantic Scholar, Crossref, arXiv, PubMed, and MCP-based paper search tools.
-- Treats Zotero as the bibliographic source of truth.
-- Treats Obsidian as the synthesis layer for paper notes, topic pages, claim maps, daily updates, and working review drafts.
-- Integrates daily radar feeds such as `lelouchsola/arXiv-Daily-Summarizer` by converting `site/latest.json` into local Obsidian notes.
-- Preserves evidence boundaries so metadata-only candidates are not silently promoted into review-ready claims.
+- Discovers papers from OpenAlex, Crossref, and arXiv with topic queries, venue allowlists, and daily lookback windows.
+- Downloads only authorized open-access PDFs when a public PDF URL is available.
+- Maintains an Obsidian wiki with paper notes, daily updates, topic pages, claim pages, and review drafts.
+- Keeps `metadata-only`, `abstract-screened`, `fulltext-read`, `citation-chain`, and `excluded` evidence states explicit.
+- Builds a local writing corpus from paper notes and optional local PDFs.
+- Serves the corpus as an MCP server for sentence examples, phrase patterns, paper context, and wording-risk checks.
 
 ## 中文说明
 
-这个仓库不是一个独立运行的 Web 应用，而是一个给 Codex 使用的 `literature-review-wiki` skill。它的作用是把“找论文、筛论文、入库、写综述、维护 Obsidian wiki、每日追踪新论文”组织成一套可重复执行的工作流。
+这个项目面向“持续文献库 + 论文写作辅助”的工作流。它不是付费数据库替代品，也不会绕过出版社权限；它负责把公开可发现、合法可下载或用户有权访问的论文材料整理到本地 Obsidian 中，并把这些材料转成可被写作代理调用的语料库。
 
-它默认把 Zotero 作为文献库的元数据来源，把 Obsidian 作为知识整理和综述写作层。Codex 在使用这个 skill 时，会先区分论文处于什么证据状态，例如只是检索到元数据、已经读过摘要、还是已经读过全文。这样可以避免把“候选论文”直接写成综述结论。
-
-## 能实现什么效果
-
-使用这个 skill 后，可以形成以下效果：
-
-1. 按某个研究主题初始化一个 Obsidian 文献综述目录，包括 `papers/`、`topics/`、`claims/`、`reviews/`、`daily/` 等页面结构。
-2. 把 `lelouchsola/arXiv-Daily-Summarizer` 生成的 `site/latest.json` 转换成 Obsidian 每日更新记录和单篇论文笔记。
-3. 把新论文按主题、方法、应用、证据状态和综述用途进行分类，而不是只保存一张论文列表。
-4. 维护一个持续更新的 literature review：新论文先进入候选池，经过摘要筛选或全文阅读后，再进入主题页、论点页和综述草稿。
-5. 保留 license 和证据边界：只默认使用开放获取或用户有权访问的 PDF；参考第三方仓库时只做链接和互操作说明，不复制不兼容 license 的代码。
-
-最终目标是得到一个本地可持续维护的研究 wiki：Zotero 管文献条目，Obsidian 管知识结构，Codex 负责按流程检索、整理、更新和检查证据边界。
+核心原则是证据边界：只检索到元数据的论文只能标记为 `metadata-only`；读过摘要后可以标记为 `abstract-screened`；只有真正读过全文并提取证据后，才应标记为 `fulltext-read` 并用于综述结论。
 
 ## Repository Contents
 
 ```text
 SKILL.md
-agents/openai.yaml
-LICENSE
+PROJECT_INTRODUCTION.md
+PROMPT_FOR_MULTICA.md
+requirements.txt
+agents/
 references/
-  license-compliance.md
-  automation.md
-  evidence-policy.md
-  obsidian-schema.md
-  tool-stack.md
-  workflow.md
+examples/
+  literature-config.example.json
+  mcp-server-config.example.json
+  run_daily_literature_update.ps1
+  github-actions-daily-literature-update.yml
 scripts/
   init_lit_review_project.py
+  literature_pipeline.py
   daily_json_to_obsidian.py
+  build_corpus.py
+  literature_mcp_server.py
   lint_lit_review_wiki.py
 ```
 
@@ -55,10 +48,16 @@ Copy or clone this folder into your Codex skills directory:
 Copy-Item -Recurse . "$env:USERPROFILE\.codex\skills\literature-review-wiki"
 ```
 
-Then start a new Codex session and invoke:
+Install optional runtime dependencies for MCP and PDF extraction:
 
-```text
-Use $literature-review-wiki to set up a literature review wiki for <topic>.
+```powershell
+python -m pip install -r requirements.txt
+```
+
+For editable development with CLI entry points:
+
+```powershell
+python -m pip install -e ".[dev]"
 ```
 
 ## Quick Start
@@ -67,54 +66,135 @@ Create an Obsidian literature review wiki:
 
 ```powershell
 python .\scripts\init_lit_review_project.py `
-  --root "C:\path\to\ObsidianVault\Literature" `
+  --root "C:\path\to\ObsidianVault\Literature\industrial-energy-flexibility" `
   --topic "industrial energy flexibility" `
   --zotero-collection "industrial energy flexibility"
 ```
 
-Convert a daily paper feed, such as `site/latest.json` from `lelouchsola/arXiv-Daily-Summarizer`, into Obsidian notes:
+Copy and edit the monitor config:
 
 ```powershell
-python .\scripts\daily_json_to_obsidian.py `
-  --input "C:\path\to\latest.json" `
-  --vault "C:\path\to\ObsidianVault\Literature" `
-  --source-name "arXiv-Daily-Summarizer"
+Copy-Item .\examples\literature-config.example.json .\work\my-literature-config.json
 ```
+
+Run discovery, OA PDF download, and Obsidian update:
+
+```powershell
+python .\scripts\literature_pipeline.py --config .\work\my-literature-config.json
+```
+
+Equivalent installed CLI:
+
+```powershell
+litwiki-discover --config .\work\my-literature-config.json
+```
+
+Build the writing corpus:
+
+```powershell
+python .\scripts\build_corpus.py `
+  --vault "C:\path\to\ObsidianVault\Literature\industrial-energy-flexibility"
+```
+
+Start the MCP server:
+
+```powershell
+python .\scripts\literature_mcp_server.py `
+  --vault "C:\path\to\ObsidianVault\Literature\industrial-energy-flexibility"
+```
+
+Equivalent installed CLI:
+
+```powershell
+litwiki-mcp --vault "C:\path\to\ObsidianVault\Literature\industrial-energy-flexibility"
+```
+
+For MCP client configuration, adapt `examples/mcp-server-config.example.json`.
 
 Check the wiki structure and evidence boundaries:
 
 ```powershell
 python .\scripts\lint_lit_review_wiki.py `
-  --vault "C:\path\to\ObsidianVault\Literature"
+  --vault "C:\path\to\ObsidianVault\Literature\industrial-energy-flexibility"
 ```
 
-## Recommended Tool Stack
+Before exposing the project through MCP, require corpus validation:
 
-- Search/download: `openags/paper-search-mcp`, OpenAlex, Semantic Scholar, Crossref, arXiv, PubMed.
-- Daily feed: `lelouchsola/arXiv-Daily-Summarizer`, `TideDra/zotero-arxiv-daily`, or topic-specific RSS.
-- Zotero: `Xevos117/mcp-zotero`, Better BibTeX, Zotero Better Notes.
-- Obsidian: Obsidian Zotero Integration and the wiki schema in `references/obsidian-schema.md`.
+```powershell
+litwiki-lint `
+  --vault "C:\path\to\ObsidianVault\Literature\industrial-energy-flexibility" `
+  --require-corpus
+```
 
-## Reference Licenses
+## Daily Update
 
-This repository is released under the MIT License. It does not copy, vendor, embed, or redistribute code from the referenced GitHub projects.
+For Windows Task Scheduler, use the wrapper in `examples/run_daily_literature_update.ps1`:
 
-See [references/license-compliance.md](references/license-compliance.md) for the referenced repositories, their detected SPDX licenses, and the allowed usage boundary. In short: MIT projects are permissive with attribution; GPL/AGPL projects are reference or separate-tool integrations unless their license obligations are satisfied; no-license or `NOASSERTION` projects must not be copied without manual review or permission.
+```powershell
+powershell -ExecutionPolicy Bypass -File .\examples\run_daily_literature_update.ps1 `
+  -RepoRoot "C:\path\to\literature-review-wiki-skill" `
+  -ConfigPath "C:\path\to\my-literature-config.json"
+```
+
+For GitHub Actions, copy `examples/github-actions-daily-literature-update.yml` into `.github/workflows/` and replace the example vault/config paths with a repository-safe setup. Do not commit private PDFs or private Obsidian notes to a public repository.
+
+## Offline Testing
+
+The pipeline supports fixture-driven runs for CI and development:
+
+```json
+{
+  "topic": "industrial energy flexibility",
+  "wiki_root": "work/test-vault",
+  "fixture_records_path": "tests/fixtures/discovery-records.json",
+  "download_open_access_pdfs": false
+}
+```
+
+Run tests:
+
+```powershell
+python -m pytest -q
+```
+
+CI uses the same offline fixture strategy and does not query live scholarly APIs.
+
+## MCP Tools
+
+`scripts/literature_mcp_server.py` exposes:
+
+- `search_literature_corpus`: search sentence examples by keyword, topic, journal, or phrase.
+- `suggest_academic_phrases`: return examples for background, gap, method, result, limitation, or general academic functions.
+- `get_paper_context`: return the Obsidian paper note for a `paper_id`.
+- `check_sentence_against_corpus`: compare a draft sentence with corpus examples and flag unsupported wording such as "prove", "state of the art", or "comprehensive".
+- `get_evidence_boundary`: explain how each evidence status may be used in writing.
+
+MCP results are for writing style and traceable context. They must not be used as factual evidence unless the linked paper note is `fulltext-read`.
 
 ## Evidence Policy
 
 The skill distinguishes:
 
-- `metadata-only`
-- `abstract-screened`
-- `fulltext-read`
-- `citation-chain`
-- `excluded`
+- `metadata-only`: search result or metadata only.
+- `abstract-screened`: abstract reviewed, no full-text claims.
+- `fulltext-read`: full text reviewed sufficiently to support claims.
+- `citation-chain`: found through references/citations; still needs screening.
+- `excluded`: screened out with a short reason.
 
 Only `fulltext-read` papers should support detailed literature-review claims. The default workflow uses only authorized open-access PDFs or user-provided files with confirmed access rights.
 
-## Suggested GitHub Description
+## Recommended Tool Stack
 
-```text
-Codex skill for Zotero-backed literature reviews, daily paper monitoring, and Obsidian wiki maintenance.
-```
+- Search/download: OpenAlex, Crossref, arXiv, optional Semantic Scholar/PubMed metadata, optional `openags/paper-search-mcp`.
+- Daily feed: this repository's `literature_pipeline.py`, `lelouchsola/arXiv-Daily-Summarizer`, or topic-specific RSS.
+- Zotero: `Xevos117/mcp-zotero`, Better BibTeX, Zotero Better Notes.
+- Obsidian: Obsidian Zotero Integration and the wiki schema in `references/obsidian-schema.md`.
+- MCP: Python `mcp` SDK with `scripts/literature_mcp_server.py`.
+
+Zotero reconciliation boundaries are documented in `references/zotero-integration.md`.
+
+## Reference Licenses
+
+This repository is released under the MIT License. It does not copy, vendor, embed, or redistribute code from the referenced GitHub projects.
+
+See [references/license-compliance.md](references/license-compliance.md) for referenced repositories, detected SPDX licenses, and allowed usage boundaries.

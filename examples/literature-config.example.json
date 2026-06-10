@@ -1,0 +1,41 @@
+{
+  "topic": "industrial energy flexibility",
+  "topic_aliases": [
+    "electric arc furnace scheduling",
+    "industrial demand response"
+  ],
+  "wiki_root": "C:/path/to/ObsidianVault/Literature/industrial-energy-flexibility",
+  "queries": [
+    "industrial energy flexibility optimization",
+    "electric arc furnace scheduling demand response",
+    "industrial load flexibility renewable integration"
+  ],
+  "included_venues": [
+    "Applied Energy",
+    "Energy",
+    "IEEE Transactions on Power Systems",
+    "IEEE Transactions on Smart Grid",
+    "International Journal of Electrical Power & Energy Systems"
+  ],
+  "venue_patterns": [
+    "^Nature",
+    "^IEEE Transactions",
+    "Applied Energy",
+    "Renewable and Sustainable Energy Reviews"
+  ],
+  "require_venue_match": false,
+  "from_year": "",
+  "lookback_days": 7,
+  "max_results_per_source": 20,
+  "request_delay_seconds": 0.3,
+  "download_open_access_pdfs": true,
+  "pdf_dir": "pdfs",
+  "new_record_evidence_status": "metadata-only",
+  "sources": {
+    "openalex": true,
+    "crossref": true,
+    "arxiv": true,
+    "semantic_scholar": false,
+    "pubmed": false
+  }
+}

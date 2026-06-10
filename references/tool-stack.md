@@ -6,6 +6,7 @@ No single GitHub repository is currently a complete mature solution for multi-so
 
 ## Search and Download
 
+- Built-in scripts: `scripts/literature_pipeline.py` uses OpenAlex, Crossref, arXiv, and optional Semantic Scholar/PubMed metadata with stdlib HTTP calls, venue filters, dedupe, and authorized OA PDF download.
 - `openags/paper-search-mcp`: multi-source search and open/public paper download. Best fit for agent-driven search workflows.
 - `dsebastien/ai-skill-scholar`: OpenAlex-based search, citation graph, and two-pass review orchestration. Useful when API keys are unavailable.
 - `Zikt/scholare`: config-driven literature search and Markdown note generation. Useful as a lightweight reference.
@@ -30,6 +31,11 @@ No single GitHub repository is currently a complete mature solution for multi-so
 - `chauff/paper-note-filler`: Obsidian plugin for notes from arXiv, ACL Anthology, and Semantic Scholar.
 - `XuanjinZhu/zotero-obsidian-wiki-bridge`: local-first paper processing and vault maintenance reference.
 - `Geek96/paper-research-skill`: closest skill-structure reference for `search/download -> Zotero -> Obsidian wiki`.
+
+## Corpus and MCP
+
+- `scripts/build_corpus.py`: local sentence-level corpus builder from Obsidian paper notes and optional PDFs.
+- `scripts/literature_mcp_server.py`: MCP server for writing agents to search sentence examples, retrieve paper context, and check unsupported wording.
 
 ## Recommended Skill Behavior
 
